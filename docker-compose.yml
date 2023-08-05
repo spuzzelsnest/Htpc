@@ -2,9 +2,9 @@ version: "2.1"
 
 services:
 
-  ##########
-  # SONARR #
-  ##########
+##########
+# SONARR #
+##########
   sonarr:
     image: linuxserver/sonarr
     container_name: htpc-sonarr
@@ -24,9 +24,9 @@ services:
     labels:
       - ${UPDATE_ON}
 
-  ##########
-  # RADARR #
-  ##########
+##########
+# RADARR #
+##########
   radarr:
     image: linuxserver/radarr
     container_name: htpc-radarr
@@ -66,9 +66,9 @@ services:
     labels:
       - ${UPDATE_ON}
   
-  ################
-  # TRANSMISSIOM #
-  ################
+################
+# TRANSMISSIOM #
+################
   transmission:
     image: linuxserver/transmission
     container_name: htpc-transmission
@@ -97,9 +97,9 @@ services:
     labels:
       - ${UPDATE_ON}
 
-  ##########
-  # BAZARR #
-  ##########
+##########
+# BAZARR #
+##########
   bazarr:
     image: linuxserver/bazarr
     container_name: htpc-bazarr
@@ -119,9 +119,9 @@ services:
     labels:
       - ${UPDATE_ON}
 
-  ##############
-  # YOUTUBE-DL #
-  ##############
+##############
+# YOUTUBE-DL #
+##############
   youtube:
     image: kmb32123/youtube-dl-server
     container_name: htpc-youtube-dl
@@ -135,9 +135,9 @@ services:
     labels:
       - ${UPDATE_ON}
 
-  ###########
-  # READARR #
-  ###########
+###########
+# READARR #
+###########
   readarr:
     container_name: htpc-readarr
     image: hotio/readarr:nightly
@@ -155,5 +155,25 @@ services:
     volumes:
       - ${CONFIG_PATH}/readarr:/config
       - ${BOOKS_PATH}/:/books
+    labels:
+      - ${UPDATE_ON}
+
+########
+# OMBI #
+########
+  ombi:
+    image: linuxserver/ombi
+    container_name: htpc-ombi
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_PATH}/ombi:/config
+    ports:
+      - ${OMBI_PORT}:3579
+    expose:
+      - ${OMBI_PORT}
+    restart: ${RESTART_POLICY}
     labels:
       - ${UPDATE_ON}
