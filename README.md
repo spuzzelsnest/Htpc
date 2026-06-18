@@ -1,7 +1,7 @@
 # Htpc Docker
 
 Fork from a friend. docker-compose for a media center maintainer.
-Combination of Sonarr, Radarr, Bazarr, Jackett and Transmission. 
+Combination of Sonarr, Radarr, Bazarr, Prowlarr, Byparr and QBittorrent. 
 
 ## Sonarr
 
@@ -57,24 +57,13 @@ docker run -id \
 ```
 ```
 
-## Transmission
+## Byparr
 
 ```
-docker run -id \
-  --name=htpc-transmission2 \
-  -e PUID=10XX \
-  -e PGID=10X \
-  -e TZ=Europe/Brussels \
-  -e TRANSMISSION_WEB_HOME=/transmission-web-control/ \
-  -e USER=admin \
-  -e PASS=ohMyTransmission \
-  -p 9091:9091 \
-  -p 51413:51413 \
-  -p 51413:51413/udp \
-  -v /[PATH-TO-CONFIG]:/config \
-  -v /[PATH-TO]/downloads:/downloads \
-  -v /[PATH-TO]/blackhole:/watch \
-  --restart unless-stopped \
-  linuxserver/transmission
+```
+
+## QBittorrent
+
+```
 ```
 
