@@ -15,6 +15,7 @@ services:
     volumes:
       - ${CONFIG_PATH}/sonarr:/config
       - ${SERIES_PATH}/:/tv
+      - ${DOCUS_PATH}/:/docus
       - ${DOWNLOAD_PATH}/:/downloads
     ports:
       - ${SONARR_PORT}:8989
@@ -65,7 +66,29 @@ services:
     restart: ${RESTART_POLICY}
     labels:
       - ${UPDATE_ON}
-  
+
+##############
+# Qbittorent #
+#############
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: htpc-qbit
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TX}
+      - WEBUI_PORT=${QBIT_GUI}
+      - TORRENTING_PORT=${QBIT_PORT}
+    volumes:
+      - ${CONFIG_PATH}/qbit/appdata:/config
+      - ${Doanload_PATH}:/downloads #optional
+    ports:
+      - ${QBIT_GUI}:8080
+      - ${QBIT_PORT}:6881
+      - ${QBIT_PORT}6881:6881/udp
+    stop_grace_period: "10s" #optional
+    restart: ${RESTART_POLICY}
+
 ################
 # TRANSMISSIOM #
 ################
