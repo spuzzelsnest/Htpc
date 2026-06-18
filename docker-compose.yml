@@ -80,9 +80,9 @@ services:
       - "8191:8191"
     restart: ${RESTART_POLICY}
 
-##############
-# Qbittorent #
-#############
+###############
+# QBITTORRENT #
+###############
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: htpc-qbit
