@@ -47,6 +47,7 @@ services:
     restart: ${RESTART_POLICY}
     labels:
       - ${UPDATE_ON}
+
 ############
 # PROWLARR #
 ############
@@ -67,6 +68,18 @@ services:
     labels:
       - ${UPDATE_ON}
 
+##########
+# BYPARR #
+##########
+  byparr:
+    image: ghcr.io/thephaseless/byparr:latest
+    container_name: htpc-byparr
+    environment:
+      - LOG_LEVEL=INFO
+    ports:
+      - "8191:8191"
+    restart: ${RESTART_POLICY}
+
 ##############
 # Qbittorent #
 #############
@@ -76,46 +89,17 @@ services:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - TZ=${TX}
+      - TZ=${TZ}
       - WEBUI_PORT=${QBIT_GUI}
       - TORRENTING_PORT=${QBIT_PORT}
     volumes:
       - ${CONFIG_PATH}/qbit/appdata:/config
-      - ${Doanload_PATH}:/downloads #optional
+      - ${DOWNLOAD_PATH}:/downloads #optional
     ports:
       - ${QBIT_GUI}:8080
       - ${QBIT_PORT}:6881
-      - ${QBIT_PORT}6881:6881/udp
+      - ${QBIT_PORT}:6881/udp
     stop_grace_period: "10s" #optional
-    restart: ${RESTART_POLICY}
-
-################
-# TRANSMISSIOM #
-################
-  transmission:
-    image: linuxserver/transmission
-    container_name: htpc-transmission
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - USER=${TRANSMISSION_USER}
-      - PASS=${TRANSMISSION_PASS}
-      - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.1.200"
-    volumes:
-      - ${CONFIG_PATH}/transmission:/config
-      - ${DOWNLOAD_PATH}/:/downloads
-      - ${BLACKHOLE_PATH}/:/watch
-    ports:
-      - ${TRANSMISSION_PORT}:9091
-      - 51413:51413
-      - 51413:51413/udp
-    expose:
-      - ${TRANSMISSION_PORT}
-      - 51413
-      - 51413/udp
-    dns:
-      - 1.1.1.1
     restart: ${RESTART_POLICY}
     labels:
       - ${UPDATE_ON}
