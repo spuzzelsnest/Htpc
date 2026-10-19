@@ -50,7 +50,7 @@ services:
 # PROWLARR #
 ############
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:develop
+    image: lscr.io/linuxserver/prowlarr:latest
     container_name: htpc-prowlarr
     environment:
       - PUID=${PUID}
@@ -80,7 +80,7 @@ services:
     restart: ${RESTART_POLICY}
 
 ################
-# TRANSMISSIOM #
+# TRANSMISSION #
 ################
   transmission:
     image: linuxserver/transmission
