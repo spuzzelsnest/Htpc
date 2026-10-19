@@ -120,29 +120,6 @@ services:
     labels:
       - ${UPDATE_ON}
 
-###########
-# READARR #
-###########
-  readarr:
-    container_name: htpc-readarr
-    image: hotio/readarr:nightly
-    restart: ${RESTART_POLICY}
-    ports:
-      - "${READARR_PORT}:8787"
-    expose:
-      - ${READARR_PORT}
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - UMASK=002
-      - TZ=${TZ}
-      - ARGS
-    volumes:
-      - ${CONFIG_PATH}/readarr:/config
-      - ${BOOKS_PATH}/:/books
-    labels:
-      - ${UPDATE_ON}
-
 ########
 # OMBI #
 ########
